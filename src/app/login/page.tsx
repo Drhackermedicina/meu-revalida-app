@@ -13,6 +13,7 @@ import {
   signInWithPopup 
 } from "firebase/auth";
 import { auth } from "@/lib/firebase"; // Verifique se este caminho está correto
+import GoogleLoginButton from '@/components/GoogleLoginButton';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');

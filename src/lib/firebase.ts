@@ -1,10 +1,12 @@
 // Localização: src/lib/firebase.ts
 
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+// As credenciais são lidas do arquivo .env.local, que deve conter os valores reais para o app "Revalida Fácil".
 
-// 1. Define a estrutura do objeto de configuração, lendo as chaves do .env.local
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+
+// Define a configuração usando as variáveis de ambiente
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -14,12 +16,13 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// 2. Inicializa o app de forma segura usando o objeto 'firebaseConfig'
-//    A sintaxe !getApps().length ? ... evita erros no ambiente de desenvolvimento
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+// Inicializa o Firebase de forma segura evitando reinicialização em desenvolvimento
+export const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+export const auth = getAuth(app);
+export const db = getFirestore(app);
 
-// 3. Exporta os serviços de Autenticação (auth) e Banco de Dados (db)
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-export { app, auth, db };
+// Em desenvolvimento, você pode conectar aos emuladores (descomente se necessário)
+// if (process.env.NODE_ENV === "development") {
+//   connectFirestoreEmulator(db, "localhost", 8282);
+//   connectAuthEmulator(auth, "http://localhost:9099");
+// }

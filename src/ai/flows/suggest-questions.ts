@@ -1,5 +1,5 @@
 // src/ai/flows/suggest-questions.ts
-'use server';
+// 'use server';
 
 /**
  * @fileOverview A question suggestion AI agent for medical students during checklist exercises.

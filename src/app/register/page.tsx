@@ -138,6 +138,14 @@ export default function RegisterPage() {
           </button>
         </form>
 
+        <button
+          onClick={handleGoogleSignIn}
+          disabled={isLoading}
+          className="w-full flex justify-center py-2 px-4 mt-4 border border-gray-300 rounded-lg shadow-sm text-lg font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-200"
+        >
+          {isLoading ? 'Aguarde...' : 'Cadastrar/Entrar com Google'}
+        </button>
+
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             Já tem uma conta?{' '}

@@ -1,9 +1,33 @@
 "use client";
 import React, { useState } from 'react';
 import { Book, User, Lock, Mail, Home, MessageSquare, BriefcaseMedical, TrendingUp, Compass, Newspaper, ArrowRight, Check, XCircle, PlayCircle } from 'lucide-react';
+import GoogleLoginButton from "./GoogleLoginButton";
+
+// Tipos auxiliares
+type MessageModalProps = {
+  message: string | null;
+  onClose: () => void;
+};
+
+type PageNavigate = 'home' | 'login' | 'register' | 'videoDemo';
+type HomePageProps = {
+  onNavigate: (page: PageNavigate) => void;
+  onShowMessage: (message: string) => void;
+};
+type VideoDemoPageProps = {
+  onNavigate: (page: PageNavigate) => void;
+};
+type LoginPageProps = {
+  onNavigate: (page: PageNavigate) => void;
+  onShowMessage: (message: string) => void;
+};
+type RegisterPageProps = {
+  onNavigate: (page: PageNavigate) => void;
+  onShowMessage: (message: string) => void;
+};
 
 // Componente do Modal de Mensagem: Usado para exibir informações ao usuário
-const MessageModal = ({ message, onClose }) => {
+const MessageModal = ({ message, onClose }: MessageModalProps) => {
   // Se não houver mensagem, o modal não é renderizado
   if (!message) return null;
 
@@ -34,7 +58,7 @@ const MessageModal = ({ message, onClose }) => {
 };
 
 // Componente da Página de Vídeo Demonstrativo: Exibe um vídeo da plataforma
-const VideoDemoPage = ({ onNavigate }) => (
+const VideoDemoPage = ({ onNavigate }: VideoDemoPageProps) => (
   <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 font-sans text-gray-800 p-4">
     {/* Cabeçalho da página de vídeo, com o nome do produto e botão de voltar */}
     <header className="py-4 px-6 md:px-12 flex justify-between items-center bg-white shadow-sm rounded-b-lg mb-8">
@@ -90,7 +114,7 @@ const VideoDemoPage = ({ onNavigate }) => (
 );
 
 // Componente da Página Inicial (Home Page): O ponto de entrada do site
-const HomePage = ({ onNavigate, onShowMessage }) => (
+const HomePage = ({ onNavigate, onShowMessage }: HomePageProps) => (
   <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 font-sans text-gray-800">
     {/* Cabeçalho de Navegação principal */}
     <header className="py-4 px-6 md:px-12 flex justify-between items-center bg-white shadow-sm rounded-b-lg">
@@ -279,13 +303,13 @@ const HomePage = ({ onNavigate, onShowMessage }) => (
 );
 
 // Componente da Página de Login: Formulário para acesso do usuário
-const LoginPage = ({ onNavigate, onShowMessage }) => {
+const LoginPage = ({ onNavigate, onShowMessage }: LoginPageProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   // Função para lidar com o envio do formulário de login (simulado)
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(''); // Limpa erros anteriores
     // Lógica de login simulada: credenciais fixas para demonstração
@@ -403,7 +427,7 @@ const LoginPage = ({ onNavigate, onShowMessage }) => {
 };
 
 // Componente da Página de Cadastro (Registro): Formulário para novos usuários
-const RegisterPage = ({ onNavigate, onShowMessage }) => {
+const RegisterPage = ({ onNavigate, onShowMessage }: RegisterPageProps) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -413,7 +437,7 @@ const RegisterPage = ({ onNavigate, onShowMessage }) => {
   const [passwordStrength, setPasswordStrength] = useState('');
 
   // Função para verificar a força da senha
-  const checkPasswordStrength = (pass) => {
+  const checkPasswordStrength = (pass: string) => {
     let strength = '';
     if (pass.length < 6) {
       strength = 'Fraca';
@@ -426,7 +450,7 @@ const RegisterPage = ({ onNavigate, onShowMessage }) => {
   };
 
   // Função para lidar com o envio do formulário de cadastro (simulado)
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
 
@@ -596,17 +620,17 @@ const RegisterPage = ({ onNavigate, onShowMessage }) => {
 // Componente Principal da Aplicação: Gerencia a navegação entre as páginas
 export default function App() {
   // Estado para controlar qual página está sendo exibida (home, login, register, videoDemo)
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState<PageNavigate>('home');
   // Estado para controlar a mensagem a ser exibida no modal
-  const [modalMessage, setModalMessage] = useState(null);
+  const [modalMessage, setModalMessage] = useState<string | null>(null);
 
   // Função para alterar a página atual
-  const handleNavigate = (page) => {
+  const handleNavigate = (page: PageNavigate) => {
     setCurrentPage(page);
   };
 
   // Função para definir a mensagem e exibir o modal
-  const handleShowMessage = (message) => {
+  const handleShowMessage = (message: string) => {
     setModalMessage(message);
   };
 
