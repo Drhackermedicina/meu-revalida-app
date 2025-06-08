@@ -13,10 +13,8 @@ const nextConfig = {
       { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
     ],
   },
-  experimental: { serverActions: true },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      // Sobrescreve explicitamente os fallbacks para módulos nativos que não são usados no client-side
       config.resolve.fallback = {
         ...config.resolve.fallback,
         tls: false,
@@ -36,7 +34,6 @@ const nextConfig = {
         'node:async_hooks': false,
         'node:buffer': false,
       };
-      // Adiciona o plugin para polyfill dos módulos nativos que podem ser polyfillados
       config.plugins.push(new NodePolyfillPlugin());
     }
     return config;
