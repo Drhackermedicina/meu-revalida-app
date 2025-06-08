@@ -1,0 +1,6 @@
+# c:\Users\helli\Documents\GitHub\meu-revalida-app
+git add .
+git commit -m "Atualiza todas as alterações"
+git push --all origin
+git push --tags
+git push origin main
