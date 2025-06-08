@@ -43,9 +43,15 @@ next-env.d.ts
 .env
 .env.local
 .env.*
+
 # firebase
 firebase-debug.log
 firestore-debug.log
+
+.firebase/
+# Para que a pasta src/app/training apareça no repositório, 
+# certifique-se de que a regra abaixo NÃO está ativa:
+# src/app/training/
 
 
 
