@@ -48,9 +48,7 @@ next-env.d.ts
 firebase-debug.log
 firestore-debug.log
 
-.firebase/
-# Faça com que a pasta seja ignorada:
-src/app/training/
+
 
 
 
